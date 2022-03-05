@@ -38,7 +38,8 @@ todoSchema.methods = {
   view (full) {
     const view = {
       // simple view
-      id: this.id,
+      id: this.user.id,
+      // user: this.user.name,
       user: this.user.view(full),
       title: this.title,
       status: this.status,

@@ -7,7 +7,23 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .then(success(res, 201))
     .catch(next)
 
+/*
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+  Todo.find(query, select, cursor)
+    .populate('user')
+    .then((todos) => todos.map((todo) => todo.view()))
+    .then(success(res))
+    .catch(next)
+*/
+
+export const index = ({
+  querymen:
+  {
+    query,
+    select,
+    cursor
+  }
+}, res, next) =>
   Todo.find(query, select, cursor)
     .populate('user')
     .then((todos) => todos.map((todo) => todo.view()))
@@ -17,10 +33,11 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Todo.findById(params.id)
     .populate('user')
-    .then(notFound(res))
+    .then((todo) => notFound(res)(todo))
     .then((todo) => todo ? todo.view() : null)
     .then(success(res))
     .catch(next)
+
 /* Express.JS middleware - autorização
 export const show = ({ params }, res, next) =>
   Todo.findById(params.id)
