@@ -39,12 +39,13 @@ todoSchema.methods = {
     const view = {
       // simple view
       id: this.id,
-      user: this.user.view(full),
+      user: this.user.email,
+      // user: this.user.view(full),
       title: this.title,
-      status: this.status,
-      completed_at: this.completed_at,
-      created_at: this.created_at,
-      pdated_at: this.updated_at
+      status: this.status
+      // completed_at: this.completed_at,
+      // created_at: this.created_at,
+      // updated_at: this.updated_at
     }
 
     return full ? {

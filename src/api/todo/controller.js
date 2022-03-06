@@ -14,6 +14,16 @@ export const index = ({ user, querymen: { select, cursor } }, res, next) =>
     .then(success(res))
     .catch(next)
 
+/*
+export const show = ({ params }, res, next) =>
+  Todo.findById(params.id)
+    .populate('user')
+    .then((todo) => notFound(res)(todo))
+    .then((todo) => todo ? todo.view() : null)
+    .then(success(res))
+    .catch(next)
+    */
+
 export const show = ({ params }, res, next) =>
   Todo.findById(params.id)
     .populate('user')
