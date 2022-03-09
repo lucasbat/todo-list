@@ -2,6 +2,8 @@ import { Router } from 'express'
 import user from './user'
 import auth from './auth'
 import todo from './todo'
+import toodoo from './toodoo'
+
 
 const router = new Router()
 
@@ -31,5 +33,6 @@ const router = new Router()
 router.use('/users', user)
 router.use('/auth', auth)
 router.use('/todos', todo)
+router.use('/toodoos', toodoo)
 
 export default router

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const todoSchema = new Schema({
+const toodooSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User',
@@ -9,6 +9,9 @@ const todoSchema = new Schema({
   title: {
     type: String,
     required: true
+  },
+  note: {
+    type: String
   },
   status: {
     type: String,
@@ -20,31 +23,40 @@ const todoSchema = new Schema({
     required: true
   },
   completed_at: {
-    type: Date
-  }
-},
-{
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
+    type: String
   },
+  priority: {
+    type: String,
+    enum: [
+      'none',
+      'low',
+      'medium',
+      'high'
+    ],
+    default: 'none',
+    required: true
+  }
+}, {
+  timestamps: true,
   toJSON: {
     virtuals: true,
     transform: (obj, ret) => { delete ret._id }
   }
 })
 
-todoSchema.methods = {
+toodooSchema.methods = {
   view (full) {
     const view = {
       // simple view
       id: this.id,
       user: this.user.view(full),
       title: this.title,
-      status: this.status
-      // completed_at: this.completed_at,
-      // created_at: this.created_at,
-      // updated_at: this.updated_at
+      note: this.note,
+      status: this.status,
+      completed_at: this.completed_at,
+      priority: this.priority,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt
     }
 
     return full ? {
@@ -64,7 +76,7 @@ todoSchema.methods = {
   }
 }
 
-const model = mongoose.model('Todo', todoSchema)
+const model = mongoose.model('Toodoo', toodooSchema)
 
 export const schema = model.schema
 export default model
